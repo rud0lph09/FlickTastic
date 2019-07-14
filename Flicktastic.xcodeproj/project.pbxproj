@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6D12292022DABD4600EB8741 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12291F22DABD4600EB8741 /* AppDelegate.swift */; };
-		6D12292222DABD4600EB8741 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12292122DABD4600EB8741 /* ViewController.swift */; };
 		6D12292522DABD4600EB8741 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D12292322DABD4600EB8741 /* Main.storyboard */; };
 		6D12292822DABD4600EB8741 /* Flicktastic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6D12292622DABD4600EB8741 /* Flicktastic.xcdatamodeld */; };
 		6D12292A22DABD4700EB8741 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D12292922DABD4700EB8741 /* Assets.xcassets */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		6D12291C22DABD4600EB8741 /* Flicktastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicktastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D12291F22DABD4600EB8741 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6D12292122DABD4600EB8741 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6D12292422DABD4600EB8741 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6D12292722DABD4600EB8741 /* Flicktastic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flicktastic.xcdatamodel; sourceTree = "<group>"; };
 		6D12292922DABD4700EB8741 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				6D12291F22DABD4600EB8741 /* AppDelegate.swift */,
-				6D12292122DABD4600EB8741 /* ViewController.swift */,
 				6D12292322DABD4600EB8741 /* Main.storyboard */,
 				6D12292922DABD4700EB8741 /* Assets.xcassets */,
 				6D12292B22DABD4700EB8741 /* LaunchScreen.storyboard */,
@@ -259,7 +256,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D12292222DABD4600EB8741 /* ViewController.swift in Sources */,
 				6D12292822DABD4600EB8741 /* Flicktastic.xcdatamodeld in Sources */,
 				6D12292022DABD4600EB8741 /* AppDelegate.swift in Sources */,
 			);
