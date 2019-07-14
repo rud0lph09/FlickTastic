@@ -7,13 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D12292022DABD4600EB8741 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12291F22DABD4600EB8741 /* AppDelegate.swift */; };
 		6D12292522DABD4600EB8741 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D12292322DABD4600EB8741 /* Main.storyboard */; };
 		6D12292822DABD4600EB8741 /* Flicktastic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6D12292622DABD4600EB8741 /* Flicktastic.xcdatamodeld */; };
 		6D12292A22DABD4700EB8741 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D12292922DABD4700EB8741 /* Assets.xcassets */; };
 		6D12292D22DABD4700EB8741 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D12292B22DABD4700EB8741 /* LaunchScreen.storyboard */; };
 		6D12293822DABD4700EB8741 /* FlicktasticTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12293722DABD4700EB8741 /* FlicktasticTests.swift */; };
 		6D12294322DABD4700EB8741 /* FlicktasticUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12294222DABD4700EB8741 /* FlicktasticUITests.swift */; };
+		6D12295F22DB38E800EB8741 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12295E22DB38E800EB8741 /* AppDelegate.swift */; };
+		6D12296122DB38FE00EB8741 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12296022DB38FE00EB8741 /* MovieModel.swift */; };
+		6D12296322DB391200EB8741 /* MovieServiceResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12296222DB391200EB8741 /* MovieServiceResultModel.swift */; };
+		6D12296522DB391A00EB8741 /* MovieRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12296422DB391A00EB8741 /* MovieRepository.swift */; };
+		6D12296922DB3E1100EB8741 /* MovieServiceErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12296822DB3E1100EB8741 /* MovieServiceErrorModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +39,6 @@
 
 /* Begin PBXFileReference section */
 		6D12291C22DABD4600EB8741 /* Flicktastic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicktastic.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D12291F22DABD4600EB8741 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D12292422DABD4600EB8741 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6D12292722DABD4600EB8741 /* Flicktastic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Flicktastic.xcdatamodel; sourceTree = "<group>"; };
 		6D12292922DABD4700EB8741 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -47,6 +50,11 @@
 		6D12293E22DABD4700EB8741 /* FlicktasticUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlicktasticUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D12294222DABD4700EB8741 /* FlicktasticUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlicktasticUITests.swift; sourceTree = "<group>"; };
 		6D12294422DABD4700EB8741 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D12295E22DB38E800EB8741 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6D12296022DB38FE00EB8741 /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		6D12296222DB391200EB8741 /* MovieServiceResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieServiceResultModel.swift; sourceTree = "<group>"; };
+		6D12296422DB391A00EB8741 /* MovieRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRepository.swift; sourceTree = "<group>"; };
+		6D12296822DB3E1100EB8741 /* MovieServiceErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieServiceErrorModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,7 +105,7 @@
 		6D12291E22DABD4600EB8741 /* Flicktastic */ = {
 			isa = PBXGroup;
 			children = (
-				6D12291F22DABD4600EB8741 /* AppDelegate.swift */,
+				6D12295D22DB386000EB8741 /* Code */,
 				6D12292322DABD4600EB8741 /* Main.storyboard */,
 				6D12292922DABD4700EB8741 /* Assets.xcassets */,
 				6D12292B22DABD4700EB8741 /* LaunchScreen.storyboard */,
@@ -123,6 +131,34 @@
 				6D12294422DABD4700EB8741 /* Info.plist */,
 			);
 			path = FlicktasticUITests;
+			sourceTree = "<group>";
+		};
+		6D12295D22DB386000EB8741 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				6D12296722DB393A00EB8741 /* Common */,
+				6D12296622DB392500EB8741 /* Model */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		6D12296622DB392500EB8741 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6D12296022DB38FE00EB8741 /* MovieModel.swift */,
+				6D12296222DB391200EB8741 /* MovieServiceResultModel.swift */,
+				6D12296822DB3E1100EB8741 /* MovieServiceErrorModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6D12296722DB393A00EB8741 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6D12295E22DB38E800EB8741 /* AppDelegate.swift */,
+				6D12296422DB391A00EB8741 /* MovieRepository.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +229,7 @@
 				TargetAttributes = {
 					6D12291B22DABD4600EB8741 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1020;
 					};
 					6D12293222DABD4700EB8741 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -256,8 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D12296122DB38FE00EB8741 /* MovieModel.swift in Sources */,
+				6D12296322DB391200EB8741 /* MovieServiceResultModel.swift in Sources */,
+				6D12295F22DB38E800EB8741 /* AppDelegate.swift in Sources */,
+				6D12296922DB3E1100EB8741 /* MovieServiceErrorModel.swift in Sources */,
+				6D12296522DB391A00EB8741 /* MovieRepository.swift in Sources */,
 				6D12292822DABD4600EB8741 /* Flicktastic.xcdatamodeld in Sources */,
-				6D12292022DABD4600EB8741 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,6 +473,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YFJ48SR2KW;
 				INFOPLIST_FILE = Flicktastic/Info.plist;
@@ -441,6 +483,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.rudolph.Flicktastic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -450,6 +493,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YFJ48SR2KW;
 				INFOPLIST_FILE = Flicktastic/Info.plist;
