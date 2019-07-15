@@ -14,15 +14,12 @@ enum FlickTasticCategory: Int {
 
 class MovieRepository {
 
-  static var app = MovieRepository()
-
   var delegate: MovieRepositoryDelegate!
 
   private let apiKey: String = "6424b629c8d2a9e4be6065dcf8b9c653"
   private let baseURL: String = "https://api.themoviedb.org/3/"
 
   func getMovies(forCategory category: FlickTasticCategory, andPage page: Int? = nil){
-
     switch category {
     case .upComming:
       requestUpCommingMovies(forPage: page)
@@ -31,11 +28,53 @@ class MovieRepository {
     case .topRated:
       requestTopRated(forPage: page)
     }
-
   }
 
   private func requestPopularMovies(forPage page: Int?) {
+    let urlString = "\(baseURL)movie/popular?api_key=\(apiKey)&language=en-US&page=\(page != nil ? page!: 1)"
 
+    guard let url = URL(string: urlString) else { return }
+
+    let config = URLSessionConfiguration.default
+    let session = URLSession(configuration: config)
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+
+    let task = session.dataTask(with: request) {
+      (data, response, error) in
+
+      guard error == nil else {
+        self.delegate.repository(self,
+                            didGetError: MovieServiceErrorModel(statusMessage: error?.localizedDescription, statusCode: nil),
+                            forServiceType: .popular,
+                            inPage: page)
+        return
+      }
+      guard let responseData = data else {
+        self.delegate.repository(self,
+                                 didGetError: MovieServiceErrorModel(statusMessage: "No data could be retrieved", statusCode: nil),
+                                 forServiceType: .popular,
+                                 inPage: nil)
+        return
+      }
+
+      do {
+        print()
+        guard let responseModel = try? JSONDecoder().decode(MovieServiceResultModel.self, from: responseData) else {
+          let errorModel = try? JSONDecoder().decode(MovieServiceErrorModel.self, from: responseData)
+          self.delegate.repository(self, didGetError: errorModel ?? MovieServiceErrorModel(genericErrorWithCustomMessage: "Something wrong happened"), forServiceType: .popular, inPage: page)
+          return
+        }
+
+        let movieList = responseModel.results
+        let page = responseModel.page
+
+        self.delegate.repository(self, didGetMovieList: movieList ?? [], forCategory: .popular, andPage: page)
+
+      }
+    }
+    task.resume()
   }
 
   private func requestUpCommingMovies(forPage page: Int?) {
@@ -50,6 +89,6 @@ class MovieRepository {
 
 
 protocol MovieRepositoryDelegate {
-  func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int)
-  func repository(_ repo: MovieRepository, didGetErrorMessage: String, forServiceType: FlickTasticCategory)
+  func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?)
+  func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?)
 }

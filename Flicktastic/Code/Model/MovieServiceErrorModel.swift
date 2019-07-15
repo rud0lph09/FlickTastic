@@ -9,6 +9,16 @@
 import Foundation
 
 struct MovieServiceErrorModel: Codable {
-  var statusMessage: String!
-  var statusCode: Int!
+  var statusMessage: String?
+  var statusCode: Int?
+
+  init(genericErrorWithCustomMessage message: String) {
+    self.statusCode = nil
+    self.statusMessage = message
+  }
+
+  init(statusMessage: String!, statusCode: Int!){
+    self.statusMessage = statusMessage
+    self.statusCode = statusCode
+  }
 }
