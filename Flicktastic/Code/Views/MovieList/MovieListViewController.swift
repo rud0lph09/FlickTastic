@@ -20,15 +20,14 @@ class MovieListViewController: UIViewController {
     movieCollectionView.delegate = self
     movieCollectionView.dataSource = self
     repository.delegate = self
-    repository.getMovies(forCategory: .popular, andPage: viewModel.getCurrentPage())
+    repository.getMovies(forCategory: .popular, andPage: viewModel.getNextPage())
   }
 }
 
 extension MovieListViewController: MovieRepositoryDelegate {
   func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?) {
     let minimumPageValue = 1
-    viewModel.movieListShouldUpdate(withMovieCollection: movieList, commingFromPage: page ?? minimumPageValue)
-    movieCollectionView.reloadData()
+    viewModel.movieListShouldUpdate(withMovieCollection: movieList, commingFromPage: page ?? minimumPageValue, withCollectionView: movieCollectionView)
   }
 
   func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?) {
@@ -74,6 +73,18 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     collectionViewLayout: UICollectionViewLayout,
                              minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return 0
+  }
+
+  func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    let indexOffset = 1
+    let movieCountIndex = indexOffset + indexPath.row
+    let currentPage = viewModel.getCurrentPage()
+    let maxNumberOfMoviesPerPage = 20
+
+    if ( movieCountIndex / maxNumberOfMoviesPerPage ) == currentPage {
+      repository.getMovies(forCategory: viewModel.currentCategory, andPage: viewModel.getNextPage())
+      
+    }
   }
 
 }

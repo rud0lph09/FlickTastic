@@ -6,7 +6,7 @@
 //  Copyright © 2019 Rodolfo Castillo Vidrio. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class MovieListViewModel {
   var movieList: [MovieModel] = []
@@ -17,10 +17,13 @@ class MovieListViewModel {
     return index < movieList.count ? movieList[index] : nil
   }
 
+  func getNextPage() -> Int {
+    return getCurrentPage() + 1
+  }
+
   func getCurrentPage() -> Int {
     let maxNumberPerPage = 20
-    let indexOffset = 1
-    self.currentPage = ( movieList.count / maxNumberPerPage ) + indexOffset
+    self.currentPage = ( movieList.count / maxNumberPerPage )
     return currentPage
   }
 
@@ -28,44 +31,21 @@ class MovieListViewModel {
     return self.movieList.count
   }
 
-  func movieListShouldUpdate(withMovieCollection movieCollection: [MovieModel], commingFromPage page: Int){
-    if page > getCurrentPage() && movieList.count <= 0 {
-      self.movieList += movieCollection
-    } else if page <= getCurrentPage() {
-      updatePage(page, withMovieCollection: movieCollection)
+  func movieListShouldUpdate(withMovieCollection movieCollection: [MovieModel], commingFromPage page: Int, withCollectionView collectionView: UICollectionView){
+    if page > getCurrentPage() || movieList.count <= 0 {
+      addNewMovies(movieCollection, toCollectionView: collectionView)
     }
   }
 
-  private func updatePage(_ page: Int, withMovieCollection movieCollection: [MovieModel]) {
-    var pages: [[MovieModel]] = []
+  private func addNewMovies(_ movieCollection: [MovieModel], toCollectionView collectionView: UICollectionView) {
     let indexOffset = 1
-    for pageIndex in 0..<getCurrentPage() {
-      let selectedPageMovieCollection = getMovieCollection(forPage: page)
-      if pageIndex + indexOffset == page {
-        pages.append(movieCollection)
-      } else {
-        pages.append(selectedPageMovieCollection)
-      }
-    }
-    movieList = []
-    for eachPage in pages {
-      for movie in eachPage {
-        movieList.append(movie)
-      }
+    for movie in movieCollection {
+      movieList.append(movie)
+      collectionView.insertItems(at: [IndexPath(item: movieList.count - indexOffset, section: 0)])
     }
   }
 
-  private func getMovieCollection(forPage selectedPage: Int) -> [MovieModel] {
-    var page: [MovieModel] = []
-    let maxNumberPerPage = 20
-    let indexOffset = 1
-    for movieIndex in 0..<movieList.count {
-      if (movieIndex + indexOffset / maxNumberPerPage) + indexOffset == selectedPage {
-        page.append(movieList[movieIndex])
-      }
-    }
-    return page
-  }
+
 }
 
 
