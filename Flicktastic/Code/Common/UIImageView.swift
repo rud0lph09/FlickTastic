@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum FlicktasticImageSize: String {
+  case thumbnail = "w200"
+  case detail = "w600"
+}
+
 extension UIImageView {
   func downloadImageFrom(Url urlString:String) {
     guard let url = URL(string: urlString) else { return }

@@ -18,6 +18,7 @@ class MovieRepository {
 
   private let apiKey: String = "6424b629c8d2a9e4be6065dcf8b9c653"
   private let baseURL: String = "https://api.themoviedb.org/3/"
+  private let imageBaseUrl: String = "https://image.tmdb.org/t/p/"
 
   func getMovies(forCategory category: FlickTasticCategory, andPage page: Int? = nil){
     switch category {
@@ -28,6 +29,12 @@ class MovieRepository {
     case .topRated:
       requestTopRated(forPage: page)
     }
+  }
+
+  func moviePosterFullPath(forMovie movie: MovieModel, isThumbnail: Bool = false) -> String?  {
+    guard let posterPath = movie.poster_path else { return nil }
+    let size: FlicktasticImageSize = isThumbnail ? .thumbnail : .detail
+    return imageBaseUrl + size.rawValue + posterPath
   }
 
   private func requestPopularMovies(forPage page: Int?) {
@@ -69,8 +76,9 @@ class MovieRepository {
 
         let movieList = responseModel.results
         let page = responseModel.page
-
-        self.delegate.repository(self, didGetMovieList: movieList ?? [], forCategory: .popular, andPage: page)
+        DispatchQueue.main.async {
+          self.delegate.repository(self, didGetMovieList: movieList ?? [], forCategory: .popular, andPage: page)
+        }
 
       }
     }

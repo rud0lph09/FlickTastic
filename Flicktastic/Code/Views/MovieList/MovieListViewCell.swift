@@ -12,6 +12,8 @@ class MovieListViewCell: UICollectionViewCell {
   @IBOutlet weak var posterView: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
 
+  static var reusableID = "movieListViewCell"
+  
   func fill(withPosterPath posterPath: String, title: String) {
     self.titleLabel.text = title
     self.posterView.downloadImageFrom(Url: posterPath)

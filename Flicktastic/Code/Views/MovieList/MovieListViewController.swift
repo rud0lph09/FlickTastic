@@ -18,6 +18,7 @@ class MovieListViewController: UIViewController {
     super.viewDidLoad()
     movieCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
     movieCollectionView.delegate = self
+    movieCollectionView.dataSource = self
     repository.delegate = self
     repository.getMovies(forCategory: .popular, andPage: viewModel.getCurrentPage())
   }
@@ -25,7 +26,9 @@ class MovieListViewController: UIViewController {
 
 extension MovieListViewController: MovieRepositoryDelegate {
   func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?) {
-    print(movieList)
+    let minimumPageValue = 1
+    viewModel.movieListShouldUpdate(withMovieCollection: movieList, commingFromPage: page ?? minimumPageValue)
+    movieCollectionView.reloadData()
   }
 
   func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?) {
@@ -47,14 +50,31 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    return UICollectionViewCell()
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListViewCell.reusableID, for: indexPath) as? MovieListViewCell, let movie = viewModel.getMovie(forIndex: indexPath.row) else { return UICollectionViewCell() }
+    let posterPath = repository.moviePosterFullPath(forMovie: movie, isThumbnail: true)
+    cell.fill(withPosterPath: posterPath ?? "", title: movie.title)
+    return cell
   }
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let width = self.view.frame.width
+    let numberOfMoviesPerRow: CGFloat = 3.0
+    let width = self.view.frame.width / numberOfMoviesPerRow
     let heightProportion: CGFloat = 1.48
     let height = width * heightProportion
     return CGSize(width: width, height: height)
   }
 
+  public func collectionView(_ collectionView: UICollectionView,
+                             layout collectionViewLayout: UICollectionViewLayout,
+                             minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+
+  public func collectionView(_ collectionView: UICollectionView, layout
+    collectionViewLayout: UICollectionViewLayout,
+                             minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 0
+  }
+
 }
+

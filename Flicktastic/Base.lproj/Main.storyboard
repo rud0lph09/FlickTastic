@@ -28,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="9fD-Gv-c5V" customClass="MovieListViewCell" customModule="Flicktastic" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="movieListViewCell" id="9fD-Gv-c5V" customClass="MovieListViewCell" customModule="Flicktastic" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="155" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -78,6 +78,9 @@
                         <viewLayoutGuide key="safeArea" id="ZPQ-5c-SjA"/>
                     </view>
                     <navigationItem key="navigationItem" id="ovX-a9-96f"/>
+                    <connections>
+                        <outlet property="movieCollectionView" destination="Cgx-oh-DzX" id="7ql-Hh-mqo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1y-oX-5hP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
