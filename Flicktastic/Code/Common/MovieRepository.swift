@@ -8,27 +8,24 @@
 
 import Foundation
 
-enum FlickTasticCategory: Int {
-  case upComming, popular, topRated
+enum FlickTasticCategory: String {
+  case upComming = "upcoming"
+  case popular = "popular"
+  case topRated = "top_rated"
 }
 
 class MovieRepository {
 
   var delegate: MovieRepositoryDelegate!
+  static var memoryCapacity = 100 * 1024 * 1024
+  static var cache = URLCache(memoryCapacity: MovieRepository.memoryCapacity, diskCapacity: MovieRepository.memoryCapacity, diskPath: "shared")
 
   private let apiKey: String = "6424b629c8d2a9e4be6065dcf8b9c653"
   private let baseURL: String = "https://api.themoviedb.org/3/"
   private let imageBaseUrl: String = "https://image.tmdb.org/t/p/"
 
   func getMovies(forCategory category: FlickTasticCategory, andPage page: Int? = nil){
-    switch category {
-    case .upComming:
-      requestUpCommingMovies(forPage: page)
-    case .popular:
-      requestPopularMovies(forPage: page)
-    case .topRated:
-      requestTopRated(forPage: page)
-    }
+    executeRequest(forCategory: category, andPage: page)
   }
 
   func moviePosterFullPath(forMovie movie: MovieModel, isThumbnail: Bool = false) -> String?  {
@@ -37,31 +34,33 @@ class MovieRepository {
     return imageBaseUrl + size.rawValue + posterPath
   }
 
-  private func requestPopularMovies(forPage page: Int?) {
-    let urlString = "\(baseURL)movie/popular?api_key=\(apiKey)&language=en-US&page=\(page != nil ? page!: 1)"
+  private func getURLForMovieRequest(_ category: FlickTasticCategory, andPage page: Int?) -> URL? {
+    let category = category.rawValue
+    let pathString = "\(baseURL)movie/\(category)?api_key=\(apiKey)&language=en-US&page=\(page != nil ? page!: 1)"
+    return URL(string: pathString)
+  }
 
-    guard let url = URL(string: urlString) else { return }
-
+  private func executeRequest(forCategory category: FlickTasticCategory, andPage page: Int?) {
+    guard let url = getURLForMovieRequest(category, andPage: page) else { return }
     let config = URLSessionConfiguration.default
+    config.urlCache = MovieRepository.cache
     let session = URLSession(configuration: config)
-
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
-
     let task = session.dataTask(with: request) {
       (data, response, error) in
 
       guard error == nil else {
         self.delegate.repository(self,
-                            didGetError: MovieServiceErrorModel(statusMessage: error?.localizedDescription, statusCode: nil),
-                            forServiceType: .popular,
-                            inPage: page)
+                                 didGetError: MovieServiceErrorModel(statusMessage: error?.localizedDescription, statusCode: nil),
+                                 forServiceType: category,
+                                 inPage: page)
         return
       }
       guard let responseData = data else {
         self.delegate.repository(self,
                                  didGetError: MovieServiceErrorModel(statusMessage: "No data could be retrieved", statusCode: nil),
-                                 forServiceType: .popular,
+                                 forServiceType: category,
                                  inPage: nil)
         return
       }
@@ -70,27 +69,19 @@ class MovieRepository {
         print()
         guard let responseModel = try? JSONDecoder().decode(MovieServiceResultModel.self, from: responseData) else {
           let errorModel = try? JSONDecoder().decode(MovieServiceErrorModel.self, from: responseData)
-          self.delegate.repository(self, didGetError: errorModel ?? MovieServiceErrorModel(genericErrorWithCustomMessage: "Something wrong happened"), forServiceType: .popular, inPage: page)
+          self.delegate.repository(self, didGetError: errorModel ?? MovieServiceErrorModel(genericErrorWithCustomMessage: "Something wrong happened"), forServiceType: category, inPage: page)
           return
         }
 
         let movieList = responseModel.results
         let page = responseModel.page
         DispatchQueue.main.async {
-          self.delegate.repository(self, didGetMovieList: movieList ?? [], forCategory: .popular, andPage: page)
+          self.delegate.repository(self, didGetMovieList: movieList ?? [], forCategory: category, andPage: page)
         }
 
       }
     }
     task.resume()
-  }
-
-  private func requestUpCommingMovies(forPage page: Int?) {
-
-  }
-
-  private func requestTopRated(forPage page: Int?) {
-
   }
 
 }

@@ -11,7 +11,6 @@ import UIKit
 class MovieListViewController: UIViewController {
   @IBOutlet weak var movieCollectionView: UICollectionView!
 
-  let repository = MovieRepository()
   let viewModel = MovieListViewModel()
 
   override func viewDidLoad() {
@@ -19,9 +18,27 @@ class MovieListViewController: UIViewController {
     movieCollectionView.collectionViewLayout = UICollectionViewFlowLayout()
     movieCollectionView.delegate = self
     movieCollectionView.dataSource = self
-    repository.delegate = self
-    repository.getMovies(forCategory: .popular, andPage: viewModel.getNextPage())
+    viewModel.setRepoDelegate(self)
+    viewModel.loadMovies(withCategory: .popular)
+    self.navigationController?.navigationBar.barStyle = .blackTranslucent
   }
+
+  @IBAction func toggleChangeOfCategory(_ sender: Any) {
+    guard let toggle = sender as? UISegmentedControl else { return }
+    var selectedCategory: FlickTasticCategory
+    switch toggle.selectedSegmentIndex {
+    case 0:
+      selectedCategory = .popular
+    case 1:
+      selectedCategory = .topRated
+    case 2:
+      selectedCategory = .upComming
+    default:
+      return
+    }
+    viewModel.loadMovies(withCategory: selectedCategory, inCollectionView: self.movieCollectionView)
+  }
+
 }
 
 extension MovieListViewController: MovieRepositoryDelegate {
@@ -40,6 +57,9 @@ extension MovieListViewController: MovieRepositoryDelegate {
     self.present(alert, animated: true, completion: nil)
   }
 
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
 
 }
 
@@ -49,8 +69,8 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListViewCell.reusableID, for: indexPath) as? MovieListViewCell, let movie = viewModel.getMovie(forIndex: indexPath.row) else { return UICollectionViewCell() }
-    let posterPath = repository.moviePosterFullPath(forMovie: movie, isThumbnail: true)
+    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListViewCell.reusableID, for: indexPath) as? MovieListViewCell, let movie = viewModel.getMovie(forIndex: indexPath.item) else { return UICollectionViewCell() }
+    let posterPath = viewModel.getMoviePosterPath(atIndex: indexPath.item)
     cell.fill(withPosterPath: posterPath ?? "", title: movie.title)
     return cell
   }
@@ -82,9 +102,13 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     let maxNumberOfMoviesPerPage = 20
 
     if ( movieCountIndex / maxNumberOfMoviesPerPage ) == currentPage {
-      repository.getMovies(forCategory: viewModel.currentCategory, andPage: viewModel.getNextPage())
+      viewModel.loadMovies(withCategory: viewModel.currentCategory, andPage: viewModel.getNextPage())
       
     }
+  }
+
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(top: 65, left: 0, bottom: 0, right: 0)
   }
 
 }

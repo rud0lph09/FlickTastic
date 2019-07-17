@@ -10,26 +10,26 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movie List View Controller-->
+        <!--Flicktastic-->
         <scene sceneID="pfu-hC-JPl">
             <objects>
                 <viewController id="q21-II-f8l" customClass="MovieListViewController" customModule="Flicktastic" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AoA-qr-2Wq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cgx-oh-DzX">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                                <color key="backgroundColor" red="0.07843220978975296" green="0.078429825603961945" blue="0.078431464731693268" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="cUg-3F-bhs">
                                     <size key="itemSize" width="155" height="220"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="65" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="movieListViewCell" id="9fD-Gv-c5V" customClass="MovieListViewCell" customModule="Flicktastic" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="155" height="220"/>
+                                        <rect key="frame" x="0.0" y="65" width="155" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="155" height="220"/>
@@ -67,9 +67,24 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ovj-hz-KR4">
+                                <rect key="frame" x="66.5" y="16" width="281" height="29"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <segments>
+                                    <segment title="Popular"/>
+                                    <segment title="Top Rated"/>
+                                    <segment title="Up Comming"/>
+                                </segments>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="toggleChangeOfCategory:" destination="q21-II-f8l" eventType="valueChanged" id="Pav-5i-INo"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ovj-hz-KR4" firstAttribute="top" secondItem="ZPQ-5c-SjA" secondAttribute="top" constant="16" id="2cI-Xx-Af4"/>
+                            <constraint firstItem="ovj-hz-KR4" firstAttribute="centerX" secondItem="AoA-qr-2Wq" secondAttribute="centerX" id="B3h-Gh-htz"/>
                             <constraint firstAttribute="bottom" secondItem="Cgx-oh-DzX" secondAttribute="bottom" id="GnD-a1-eYc"/>
                             <constraint firstItem="Cgx-oh-DzX" firstAttribute="top" secondItem="ZPQ-5c-SjA" secondAttribute="top" id="Hhg-v4-1dg"/>
                             <constraint firstItem="Cgx-oh-DzX" firstAttribute="leading" secondItem="ZPQ-5c-SjA" secondAttribute="leading" id="i8X-LK-wJm"/>
@@ -77,7 +92,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ZPQ-5c-SjA"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ovX-a9-96f"/>
+                    <navigationItem key="navigationItem" title="Flicktastic" id="ovX-a9-96f"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" translucent="NO" prompted="NO"/>
                     <connections>
                         <outlet property="movieCollectionView" destination="Cgx-oh-DzX" id="7ql-Hh-mqo"/>
                     </connections>
@@ -94,6 +110,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rAD-tj-jZc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
