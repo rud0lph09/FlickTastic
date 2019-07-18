@@ -9,9 +9,12 @@
 import UIKit
 
 class MovieListViewController: UIViewController {
-  @IBOutlet weak var movieCollectionView: UICollectionView!
 
+  @IBOutlet weak var movieCollectionView: UICollectionView!
+  @IBOutlet weak var reloadButton: UIButton!
+  @IBOutlet weak var reloadButtonHeightConstraint: NSLayoutConstraint!
   let viewModel = MovieListViewModel()
+  var serviceIsFetching = false
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -19,8 +22,14 @@ class MovieListViewController: UIViewController {
     movieCollectionView.delegate = self
     movieCollectionView.dataSource = self
     viewModel.setRepoDelegate(self)
-    viewModel.loadMovies(withCategory: .popular)
+    viewModel.loadMovies(withCategory: viewModel.currentCategory)
     self.navigationController?.navigationBar.barStyle = .blackTranslucent
+  }
+
+  @IBAction func reload(){
+    if viewModel.getMovieListCount() == 0 {
+      viewModel.loadMovies(withCategory: viewModel.currentCategory)
+    }
   }
 
   @IBAction func toggleChangeOfCategory(_ sender: Any) {
@@ -39,22 +48,60 @@ class MovieListViewController: UIViewController {
     viewModel.loadMovies(withCategory: selectedCategory, inCollectionView: self.movieCollectionView)
   }
 
+  func animateChanges() {
+    UIView.animate(withDuration: 0.5) {
+      self.view.layoutIfNeeded()
+    }
+  }
+
+  func hideReloadButton(){
+    DispatchQueue.main.async {
+      self.reloadButtonHeightConstraint.constant = self.viewModel.offlineButtonHiddenHeight
+      self.animateChanges()
+    }
+    self.reloadButton.setTitle("", for: .normal)
+  }
+
 }
 
 extension MovieListViewController: MovieRepositoryDelegate {
   func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?) {
+    serviceIsFetching = false
     let minimumPageValue = 1
+    viewModel.checkForPreviusError(inPage: page ?? 1) { (shouldHideReloadButton) in
+      if shouldHideReloadButton {
+        self.hideReloadButton()
+      }
+    }
     viewModel.movieListShouldUpdate(withMovieCollection: movieList, commingFromPage: page ?? minimumPageValue, withCollectionView: movieCollectionView)
   }
 
   func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?) {
-    let code = didGetError.statusCode != nil ? "\(didGetError.statusCode!)" : ""
-    let message = didGetError.statusMessage ?? "Something wrong happened, could load movies :C"
-    let alert = UIAlertController(title: "Error: " + code,
-                                  message: message, preferredStyle: .alert)
-    let action = UIAlertAction(title: "Okey", style: .default, handler: nil)
-    alert.addAction(action)
-    self.present(alert, animated: true, completion: nil)
+    serviceIsFetching = false
+    DispatchQueue.main.async {
+      if let statusMessage = didGetError.statusMessage , statusMessage == CommonErrorMessages.connection {
+        self.reloadButtonHeightConstraint.constant = self.viewModel.offlineButtonHeight
+        self.animateChanges()
+        self.viewModel.registerErrorOnPage(page ?? 1)
+        if self.viewModel.getMovieListCount() == 0 {
+          self.reloadButton.setTitle(self.viewModel.tapToReloadString, for: .normal)
+        } else {
+          self.reloadButton.setTitle(self.viewModel.offlineString, for: .normal)
+        }
+      } else {
+        let code = didGetError.statusCode != nil ? "\(didGetError.statusCode!)" : ""
+        let message = didGetError.statusMessage ?? self.viewModel.unknownErrorString
+        let alert = UIAlertController(title: "Error: " + code,
+                                      message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "Okey", style: .default, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+      }
+    }
+  }
+
+  func repository(_ repo: MovieRepository, willStartRequestForCategory category: FlickTasticCategory) {
+    serviceIsFetching = true
   }
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -65,7 +112,7 @@ extension MovieListViewController: MovieRepositoryDelegate {
 
 extension MovieListViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return viewModel.getMovieListCount()
+     return viewModel.getMovieListCount()
   }
 
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,14 +143,16 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
   }
 
   func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-    let indexOffset = 1
-    let movieCountIndex = indexOffset + indexPath.row
-    let currentPage = viewModel.getCurrentPage()
-    let maxNumberOfMoviesPerPage = 20
+    if !serviceIsFetching {
+      let indexOffset = 1
+      let movieCountIndex = indexOffset + indexPath.row
+      let currentPage = viewModel.getCurrentPage()
+      let maxNumberOfMoviesPerPage = 20
 
-    if ( movieCountIndex / maxNumberOfMoviesPerPage ) == currentPage {
-      viewModel.loadMovies(withCategory: viewModel.currentCategory, andPage: viewModel.getNextPage())
-      
+      if ( movieCountIndex / maxNumberOfMoviesPerPage ) == currentPage {
+        viewModel.loadMovies(withCategory: viewModel.currentCategory, andPage: viewModel.getNextPage())
+
+      }
     }
   }
 

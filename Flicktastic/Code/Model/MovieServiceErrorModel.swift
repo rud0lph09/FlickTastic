@@ -8,6 +8,10 @@
 
 import Foundation
 
+struct CommonErrorMessages {
+  static var connection = "The Internet connection appears to be offline."
+}
+
 struct MovieServiceErrorModel: Codable {
   var statusMessage: String?
   var statusCode: Int?

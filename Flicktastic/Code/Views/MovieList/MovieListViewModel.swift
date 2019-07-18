@@ -13,6 +13,14 @@ class MovieListViewModel {
   var currentCategory: FlickTasticCategory = .popular
   private var repo = MovieRepository()
   private var currentPage = 0
+  private var lastPageWithError: Int? = nil
+
+  var tapToReloadString = "You appear to be offline. Tap here to reload."
+  var offlineString = "You are offline."
+  var offlineButtonHeight: CGFloat = 50
+  var offlineButtonHiddenHeight: CGFloat = 0
+
+  var unknownErrorString = "Something wrong happened, could load movies :C"
 
   func getMovie(forIndex index: Int) -> MovieModel? {
     return index < movieList.count ? movieList[index] : nil
@@ -24,6 +32,14 @@ class MovieListViewModel {
 
   func getNextPage() -> Int {
     return getCurrentPage() + 1
+  }
+
+  func registerErrorOnPage(_ page: Int) {
+    self.lastPageWithError = page
+  }
+
+  func checkForPreviusError(inPage page: Int, completion: (Bool)->()) {
+    completion(page == lastPageWithError)
   }
 
   func getMoviePosterPath(atIndex index: Int) -> String? {
@@ -48,6 +64,7 @@ class MovieListViewModel {
   private func shouldChangeCategory(selectedCategory: FlickTasticCategory, inCollectionView collectionView: UICollectionView?) {
     guard let collectionViewToUpdate = collectionView else { return }
     if self.currentCategory.rawValue != selectedCategory.rawValue {
+      self.lastPageWithError = nil
       self.currentCategory = selectedCategory
       self.movieList = []
       collectionViewToUpdate.reloadData()
