@@ -11,14 +11,14 @@ import XCTest
 
 class FlicktasticTests: XCTestCase {
 
-  var mockController = MovieListTestController()
+  var mockMovie = MovieModel(poster_path: "posterPath", adult: false, overview: "overview", release_date: "date", genre_ids: [1,2,3], id: 123, original_title: "originalTitle", original_lenguage: "leng", title: "title", backdrop_path: "backdrop", popularity: 123, vote_count: 123, video: true, vote_avarage: 123)
 
     override func setUp() {
-      mockController.repository.delegate = mockController
     }
 
     func testExample() {
-        mockController.repository.getMovies(forCategory: .popular)
+      let mockDictionary = try? mockMovie.asDictionary()
+      XCTAssertNotNil(mockDictionary, "The dictionary was nil")
     }
 
 }

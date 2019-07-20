@@ -10,12 +10,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Flicktastic/Code/Views/MovieList/MovieListViewModel.swift"
-            timestampString = "585126140.1943361"
+            timestampString = "585307100.8179229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "42"
             endingLineNumber = "42"
             landmarkName = "checkForPreviusError(inPage:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flicktastic/Code/Model/MovieServiceErrorModel.swift"
+            timestampString = "585158073.2582099"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "MovieServiceErrorModel"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flicktastic.MovieServiceErrorModel.init(from: Swift.Decoder) throws -&gt; Flicktastic.MovieServiceErrorModel"
+                  moduleName = "Flicktastic"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/r.castillo/Documents/Flicktastic/Flicktastic/Code/Model/MovieServiceErrorModel.swift"
+                  timestampString = "585307100.8234791"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "131">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FlicktasticTests.MovieServiceErrorModel.init(from: Swift.Decoder) throws -&gt; FlicktasticTests.MovieServiceErrorModel"
+                  moduleName = "FlicktasticTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/r.castillo/Documents/Flicktastic/Flicktastic/Code/Model/MovieServiceErrorModel.swift"
+                  timestampString = "585307101.388864"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "131">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FlicktasticTests/FlicktasticTests.swift"
+            timestampString = "585307100.818032"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "testExample()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

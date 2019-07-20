@@ -9,6 +9,10 @@
 import UIKit
 
 class MovieListTestController: MovieRepositoryDelegate {
+  func repository(_ repo: MovieRepository, willStartRequestForCategory category: FlickTasticCategory) {
+    
+  }
+
 
   let repository = MovieRepository()
 

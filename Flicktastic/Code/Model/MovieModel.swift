@@ -23,4 +23,5 @@ struct MovieModel: Codable {
   var vote_count: Int!
   var video: Bool!
   var vote_avarage: Double!
+
 }
