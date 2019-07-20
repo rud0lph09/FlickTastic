@@ -64,8 +64,8 @@ class MovieListViewController: UIViewController {
 
 }
 
-extension MovieListViewController: MovieRepositoryDelegate {
-  func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?) {
+extension MovieListViewController: MovieListRepositoryDelegate {
+  func repository(_ repo: MovieListRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?) {
     serviceIsFetching = false
     let minimumPageValue = 1
     viewModel.checkForPreviusError(inPage: page ?? 1) { (shouldHideReloadButton) in
@@ -76,7 +76,7 @@ extension MovieListViewController: MovieRepositoryDelegate {
     viewModel.movieListShouldUpdate(withMovieCollection: movieList, commingFromPage: page ?? minimumPageValue, withCollectionView: movieCollectionView)
   }
 
-  func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?) {
+  func repository(_ repo: MovieListRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?) {
     serviceIsFetching = false
     DispatchQueue.main.async {
       if let statusMessage = didGetError.statusMessage , statusMessage == CommonErrorMessages.connection {
@@ -100,7 +100,7 @@ extension MovieListViewController: MovieRepositoryDelegate {
     }
   }
 
-  func repository(_ repo: MovieRepository, willStartRequestForCategory category: FlickTasticCategory) {
+  func repository(_ repo: MovieListRepository, willStartRequestForCategory category: FlickTasticCategory) {
     serviceIsFetching = true
   }
 

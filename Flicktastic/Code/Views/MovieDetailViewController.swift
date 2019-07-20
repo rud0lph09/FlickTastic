@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class MovieDetailViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class MovieDetailViewController: UIViewController {
   @IBOutlet weak var moviePosterView: UIImageView!
   @IBOutlet weak var movieTitle: UILabel!
   @IBOutlet weak var movieBackgroundView: UIImageView!
+  @IBOutlet weak var viewClipButton: UIButton!
 
   override func viewDidLoad() {
     movieDetailTable.delegate = self
@@ -25,6 +27,8 @@ class MovieDetailViewController: UIViewController {
     movieTitle.text = viewModel.movie.title
     moviePosterView.downloadImageFrom(Url: viewModel.getPosterPath() ?? "")
     movieBackgroundView.image = moviePosterView.image
+    viewModel.clipsRepo.delegate = self
+    viewModel.clipsRepo.getMovieClips(forMovie: viewModel.movie)
   }
 
   static func getController(withViewModel viewModel: MovieDetailViewModel) -> MovieDetailViewController? {
@@ -32,6 +36,19 @@ class MovieDetailViewController: UIViewController {
     guard let controller = storyBoard.instantiateViewController(withIdentifier: MovieDetailViewController.storyBoardID) as? MovieDetailViewController else { return nil }
     controller.viewModel = viewModel
     return controller
+  }
+
+  @IBAction func viewClip() {
+
+    guard let clipURl = viewModel.getYoutubeTrailerOrClip() else { return }
+    if UIApplication.shared.canOpenURL(clipURl) {
+      UIApplication.shared.openURL(clipURl)
+    } else {
+      let controller = SFSafariViewController(url: clipURl)
+      DispatchQueue.main.async {
+        self.present(controller, animated: true, completion: nil)
+      }
+    }
   }
 
 }
@@ -63,5 +80,18 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
       cell = simpleCell
     }
     return cell ?? UITableViewCell()
+  }
+}
+
+extension MovieDetailViewController: MovieClipsRepositoryDelegate {
+  func repository(_ repo: MovieClipsRepository, didGetMovieClips movieClips: [MovieClipModel]) {
+    viewModel.movieClips = movieClips
+    guard viewModel.getYoutubeTrailerOrClip() != nil else { return }
+    DispatchQueue.main.async {
+      self.viewClipButton.isHidden = false
+    }
+  }
+
+  func repository(_ repo: MovieClipsRepository, didGetError: MovieServiceErrorModel, forMovie: MovieModel) {
   }
 }

@@ -16,7 +16,7 @@ class FlicktasticTests: XCTestCase {
     override func setUp() {
     }
 
-    func testExample() {
+    func testCodableToDictionary() {
       let mockDictionary = try? mockMovie.asDictionary()
       XCTAssertNotNil(mockDictionary, "The dictionary was nil")
     }

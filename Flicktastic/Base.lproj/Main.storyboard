@@ -119,19 +119,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="moX-Qm-CAk">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                            </imageView>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="54D-qq-FtO">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SLE-sz-IQs">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </view>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <blurEffect style="dark"/>
-                            </visualEffectView>
                             <tableView opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wTQ-wA-2qe">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -140,6 +127,19 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultDetail" translatesAutoresizingMaskIntoConstraints="NO" id="moX-Qm-CAk">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
+                                        </imageView>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="54D-qq-FtO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="SLE-sz-IQs">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="338"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <blurEffect style="light"/>
+                                        </visualEffectView>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oRa-QH-B7z">
                                             <rect key="frame" x="143" y="18" width="128" height="188"/>
                                             <color key="backgroundColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="0.60188356160000001" colorSpace="custom" customColorSpace="sRGB"/>
@@ -147,7 +147,7 @@
                                                 <constraint firstAttribute="width" secondItem="oRa-QH-B7z" secondAttribute="height" multiplier="100:148" constant="1" id="b1h-d1-Tzq"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liT-P6-wi2">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liT-P6-wi2">
                                             <rect key="frame" x="0.0" y="288" width="414" height="50"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.67521939212328763" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
@@ -157,6 +157,9 @@
                                             <state key="normal" title="View Trailer">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </state>
+                                            <connections>
+                                                <action selector="viewClip" destination="LWh-kf-08m" eventType="touchUpInside" id="rMJ-zH-Tf1"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndY-OB-GT1">
                                             <rect key="frame" x="15" y="218" width="384" height="55"/>
@@ -170,14 +173,22 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="moX-Qm-CAk" secondAttribute="trailing" id="1Yv-dl-yBo"/>
+                                        <constraint firstItem="54D-qq-FtO" firstAttribute="top" secondItem="yO6-zV-OP8" secondAttribute="top" id="2bX-WX-YDZ"/>
                                         <constraint firstAttribute="bottom" secondItem="liT-P6-wi2" secondAttribute="bottom" id="8E6-31-hIC"/>
+                                        <constraint firstAttribute="trailing" secondItem="54D-qq-FtO" secondAttribute="trailing" id="AId-XR-f4I"/>
                                         <constraint firstItem="ndY-OB-GT1" firstAttribute="top" secondItem="oRa-QH-B7z" secondAttribute="bottom" constant="12" id="Fut-fV-Ze0"/>
                                         <constraint firstItem="liT-P6-wi2" firstAttribute="leading" secondItem="yO6-zV-OP8" secondAttribute="leading" id="Gqi-YS-Wo5"/>
+                                        <constraint firstItem="moX-Qm-CAk" firstAttribute="top" secondItem="yO6-zV-OP8" secondAttribute="top" id="R8d-yf-Tlh"/>
                                         <constraint firstAttribute="trailing" secondItem="liT-P6-wi2" secondAttribute="trailing" id="TPe-5r-o5p"/>
                                         <constraint firstItem="ndY-OB-GT1" firstAttribute="leading" secondItem="yO6-zV-OP8" secondAttribute="leading" constant="15" id="TR0-8G-EGz"/>
-                                        <constraint firstItem="liT-P6-wi2" firstAttribute="top" secondItem="ndY-OB-GT1" secondAttribute="bottom" constant="15" id="ci1-AZ-Y1C"/>
+                                        <constraint firstAttribute="bottom" secondItem="moX-Qm-CAk" secondAttribute="bottom" id="U1Y-GS-sYn"/>
+                                        <constraint firstItem="moX-Qm-CAk" firstAttribute="leading" secondItem="yO6-zV-OP8" secondAttribute="leading" id="cAd-ix-6oQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="ndY-OB-GT1" secondAttribute="bottom" constant="65" id="dIm-wD-nBX"/>
+                                        <constraint firstItem="54D-qq-FtO" firstAttribute="leading" secondItem="yO6-zV-OP8" secondAttribute="leading" id="gMQ-H4-vZY"/>
                                         <constraint firstItem="oRa-QH-B7z" firstAttribute="centerX" secondItem="yO6-zV-OP8" secondAttribute="centerX" id="plw-aY-rzp"/>
                                         <constraint firstItem="oRa-QH-B7z" firstAttribute="top" secondItem="yO6-zV-OP8" secondAttribute="top" constant="18" id="sTw-eJ-5dJ"/>
+                                        <constraint firstAttribute="bottom" secondItem="54D-qq-FtO" secondAttribute="bottom" id="wfM-U5-Wpp"/>
                                         <constraint firstAttribute="trailing" secondItem="ndY-OB-GT1" secondAttribute="trailing" constant="15" id="xfH-vb-CL6"/>
                                     </constraints>
                                 </view>
@@ -288,18 +299,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.078419364988803864" green="0.078440017998218536" blue="0.078414969146251678" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="moX-Qm-CAk" secondAttribute="bottom" id="1Qc-Pa-oh6"/>
-                            <constraint firstItem="54D-qq-FtO" firstAttribute="trailing" secondItem="cFw-Yx-Ebb" secondAttribute="trailing" id="A6E-fh-Ogw"/>
                             <constraint firstAttribute="bottom" secondItem="wTQ-wA-2qe" secondAttribute="bottom" id="DN0-4t-nqo"/>
                             <constraint firstItem="wTQ-wA-2qe" firstAttribute="trailing" secondItem="cFw-Yx-Ebb" secondAttribute="trailing" id="EWm-aZ-ncD"/>
-                            <constraint firstItem="54D-qq-FtO" firstAttribute="leading" secondItem="cFw-Yx-Ebb" secondAttribute="leading" id="F3r-0m-Azs"/>
-                            <constraint firstItem="54D-qq-FtO" firstAttribute="top" secondItem="cFw-Yx-Ebb" secondAttribute="top" id="FAk-e3-sl4"/>
                             <constraint firstItem="wTQ-wA-2qe" firstAttribute="top" secondItem="cFw-Yx-Ebb" secondAttribute="top" id="H1u-7g-Kxe"/>
-                            <constraint firstItem="moX-Qm-CAk" firstAttribute="top" secondItem="cXR-Yw-dAR" secondAttribute="top" id="LZe-y4-vc0"/>
                             <constraint firstItem="wTQ-wA-2qe" firstAttribute="leading" secondItem="cFw-Yx-Ebb" secondAttribute="leading" id="RCR-8j-Eri"/>
-                            <constraint firstAttribute="bottom" secondItem="54D-qq-FtO" secondAttribute="bottom" id="cbj-d9-QoO"/>
-                            <constraint firstItem="moX-Qm-CAk" firstAttribute="trailing" secondItem="cFw-Yx-Ebb" secondAttribute="trailing" id="sm2-Nb-UOj"/>
-                            <constraint firstItem="moX-Qm-CAk" firstAttribute="leading" secondItem="cFw-Yx-Ebb" secondAttribute="leading" id="zan-0O-cmH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cFw-Yx-Ebb"/>
                     </view>
@@ -309,6 +312,7 @@
                         <outlet property="movieDetailTable" destination="wTQ-wA-2qe" id="5g9-Mj-kQR"/>
                         <outlet property="moviePosterView" destination="oRa-QH-B7z" id="KOx-hT-4J1"/>
                         <outlet property="movieTitle" destination="ndY-OB-GT1" id="AaL-gj-0mH"/>
+                        <outlet property="viewClipButton" destination="liT-P6-wi2" id="XmZ-4J-S1M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BG6-p2-im0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -335,4 +339,7 @@
             <point key="canvasLocation" x="-217.39130434782609" y="-217.63392857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="defaultDetail" width="1080" height="1920"/>
+    </resources>
 </document>

@@ -16,9 +16,23 @@ class MovieDetailViewModel {
 
   private let simpleDetailsKeysAndValues = ["release_date": "Release date", "original_title": "Original title", "original_lenguage": "Original lenguage", "popularity": "Popularity", "vote_count": "Vote count", "vote_avarage": "Vote avarage"]
 
-  var repo = MovieRepository()
+  var unknownErrorString = "Something wrong happened, could load movies :C"
 
+  var clipsRepo = MovieClipsRepository()
+  var repo = MovieListRepository()
+
+  var movieClips: [MovieClipModel] = []
   var movie: MovieModel!
+
+  func getYoutubeTrailerOrClip() -> URL? {
+    for clip in movieClips {
+      if let site = clip.site, site == "YouTube" {
+        let youtubePath = clipsRepo.youtubeBaseUrl + clip.key
+        return URL(string: youtubePath)
+      }
+    }
+    return nil
+  }
 
   init(withMovieModel movie: MovieModel) {
     self.movie = movie

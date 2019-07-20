@@ -11,7 +11,7 @@ import UIKit
 class MovieListViewModel {
   var movieList: [MovieModel] = []
   var currentCategory: FlickTasticCategory = .popular
-  private var repo = MovieRepository()
+  private var repo = MovieListRepository()
   private var currentPage = 0
   private var lastPageWithError: Int? = nil
 
@@ -26,7 +26,7 @@ class MovieListViewModel {
     return index < movieList.count ? movieList[index] : nil
   }
 
-  func setRepoDelegate(_ delegate: MovieRepositoryDelegate) {
+  func setRepoDelegate(_ delegate: MovieListRepositoryDelegate) {
     self.repo.delegate = delegate
   }
 

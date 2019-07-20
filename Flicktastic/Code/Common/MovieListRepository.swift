@@ -14,16 +14,12 @@ enum FlickTasticCategory: String {
   case topRated = "top_rated"
 }
 
-class MovieRepository {
+class MovieListRepository: Repository {
 
-  var delegate: MovieRepositoryDelegate!
+  var delegate: MovieListRepositoryDelegate!
 
   static var memoryCapacity = 100 * 1024 * 1024
-  static var cache = URLCache(memoryCapacity: MovieRepository.memoryCapacity, diskCapacity: MovieRepository.memoryCapacity, diskPath: "shared")
-
-  private let apiKey: String = "6424b629c8d2a9e4be6065dcf8b9c653"
-  private let baseURL: String = "https://api.themoviedb.org/3/"
-  private let imageBaseUrl: String = "https://image.tmdb.org/t/p/"
+  static var cache = URLCache(memoryCapacity: MovieListRepository.memoryCapacity, diskCapacity: MovieListRepository.memoryCapacity, diskPath: "shared")
 
   func getMovies(forCategory category: FlickTasticCategory, andPage page: Int? = nil){
     executeRequest(forCategory: category, andPage: page)
@@ -44,7 +40,7 @@ class MovieRepository {
   private func executeRequest(forCategory category: FlickTasticCategory, andPage page: Int?) {
     guard let url = getURLForMovieRequest(category, andPage: page) else { return }
     let config = URLSessionConfiguration.default
-    config.urlCache = MovieRepository.cache
+    config.urlCache = MovieListRepository.cache
     let session = URLSession(configuration: config)
     var request = URLRequest(url: url)
     request.httpMethod = "GET"
@@ -66,7 +62,6 @@ class MovieRepository {
                                  inPage: nil)
         return
       }
-
       do {
         print()
         guard let responseModel = try? JSONDecoder().decode(MovieServiceResultModel.self, from: responseData) else {
@@ -89,8 +84,9 @@ class MovieRepository {
 }
 
 
-protocol MovieRepositoryDelegate {
-  func repository(_ repo: MovieRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?)
-  func repository(_ repo: MovieRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?)
-  func repository(_ repo: MovieRepository, willStartRequestForCategory category: FlickTasticCategory)
+protocol MovieListRepositoryDelegate {
+  func repository(_ repo: MovieListRepository, didGetMovieList movieList: [MovieModel], forCategory category: FlickTasticCategory, andPage page: Int?)
+  func repository(_ repo: MovieListRepository, didGetError: MovieServiceErrorModel, forServiceType: FlickTasticCategory, inPage page: Int?)
+  func repository(_ repo: MovieListRepository, willStartRequestForCategory category: FlickTasticCategory)
 }
+
