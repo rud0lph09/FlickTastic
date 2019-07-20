@@ -10,7 +10,7 @@ import UIKit
 
 enum FlicktasticImageSize: String {
   case thumbnail = "w200"
-  case detail = "w600"
+  case detail = "w500"
 }
 
 extension UIImageView {

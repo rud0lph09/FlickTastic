@@ -160,5 +160,12 @@ extension MovieListViewController: UICollectionViewDataSource, UICollectionViewD
     return UIEdgeInsets(top: 65, left: 0, bottom: 0, right: 0)
   }
 
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let selectedMovie = viewModel.movieList[indexPath.row]
+    let detailViewModel = MovieDetailViewModel(withMovieModel: selectedMovie)
+    guard let controller = MovieDetailViewController.getController(withViewModel: detailViewModel) else { return }
+    self.navigationController?.pushViewController(controller, animated: true)
+  }
+
 }
 

@@ -8,9 +8,13 @@
 
 import UIKit
 
+enum MovieDetailCellTypeID: String {
+  case detailed = "detailCell", simple = "simpleCell"
+}
+
 class MovieDetailViewModel {
 
-  let simpleDetailsKeysAndValues = ["release_date": "Release date", "adult": "Suitable for minors", "original_title": "Original title", "original_lenguage": "Original lenguage", "popularity": "Popularity", "vote_count": "Vote count", "vote_avarage": "Vote avarage"]
+  private let simpleDetailsKeysAndValues = ["release_date": "Release date", "original_title": "Original title", "original_lenguage": "Original lenguage", "popularity": "Popularity", "vote_count": "Vote count", "vote_avarage": "Vote avarage"]
 
   var repo = MovieRepository()
 
@@ -18,6 +22,14 @@ class MovieDetailViewModel {
 
   init(withMovieModel movie: MovieModel) {
     self.movie = movie
+  }
+
+  func getKeysArray() -> [String] {
+    return Array(simpleDetailsKeysAndValues.keys)
+  }
+
+  func getTitleForKey(_ key: String) -> String {
+    return simpleDetailsKeysAndValues[key] ?? ""
   }
 
   func getPosterPath() -> String? {

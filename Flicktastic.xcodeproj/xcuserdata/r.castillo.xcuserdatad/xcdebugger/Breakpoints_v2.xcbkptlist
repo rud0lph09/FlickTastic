@@ -33,38 +33,6 @@
             endingLineNumber = "17"
             landmarkName = "MovieServiceErrorModel"
             landmarkType = "14">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Flicktastic.MovieServiceErrorModel.init(from: Swift.Decoder) throws -&gt; Flicktastic.MovieServiceErrorModel"
-                  moduleName = "Flicktastic"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/r.castillo/Documents/Flicktastic/Flicktastic/Code/Model/MovieServiceErrorModel.swift"
-                  timestampString = "585307100.8234791"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "131">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FlicktasticTests.MovieServiceErrorModel.init(from: Swift.Decoder) throws -&gt; FlicktasticTests.MovieServiceErrorModel"
-                  moduleName = "FlicktasticTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/r.castillo/Documents/Flicktastic/Flicktastic/Code/Model/MovieServiceErrorModel.swift"
-                  timestampString = "585307101.388864"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "131">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -74,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FlicktasticTests/FlicktasticTests.swift"
-            timestampString = "585307100.818032"
+            timestampString = "585310951.881989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "21"
